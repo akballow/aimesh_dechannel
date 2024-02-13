@@ -31,7 +31,7 @@ After doing this you will see your main router be on channel 13, but the mesh no
 Lets say you want to make another mesh node on channel 13 so you have even spread of nodes on channel 1 and 13, simply ssh in to the node and do the same steps.
 To make the changes persistant make the above commands in a jffs script in "/jffs/scripts/init-start"
 
-Since 2.4ghz for most contries is 1-12 and only exception is 13/14, there is no way to carve it out better. As for 5ghz we can look up which channels each country uses like for example https://w.wol.ph/2015/08/28/maximum-wifi-transmission-power-country/ 
+Since 2.4ghz for most contries is 1-12 and only exception is 13/14, there is no way to carve it out better with definition, but if you go to one of the aimesh nodes after they are on a seperate channel of the main router and restart the wireless it will auto find another channel since the main router is noisy, the aimesh nodes are noisy, and might pick something like channel 6. As for 5ghz we can look up which channels each country uses like for example https://w.wol.ph/2015/08/28/maximum-wifi-transmission-power-country/ 
 
 For example IS does now allow 100 and anything above 140 so we can set one aimesh node to IS so it cant pick up 100. We can see TW does not allow any channels under 56 so we can set one node to TW.
 When you set channel 136 on the main router, one node with IS will have to pick a channel that is not 136 and anything over 140. The TW node can not pick anything in under 56.
