@@ -4,12 +4,13 @@
 > We (including commentators) are not responsible for any damage to your device(s).
 
 # NOTE
-You have to be okay with using channel 12-14 for 2.4ghz. 
+For this Method #1. You have to be okay with using channel 12-14 for 2.4ghz. 
+Method #2 on the bottom requires no nvram settings and allows for better carving, but requires more manual work. 
 
 # Introduction
 One of the biggest pain points of AiMesh is the inability to change channels for the mesh nodes so for example if your main router is using channel 6 and 36, all the mesh nodes will too. You probablly read online how you can ssh to the mesh node and change the channel but this never ends up working because the mesh nodes always sync with the main router and going back to the main router channels. There is a way to trick it by making your main router do channels that the mesh nodes can not do, when this happens the mesh nodes default to auto channel.
 
-# Instructions
+# Method 1
 This was tested with a RT-AX86U as the main router and XD5's as the mesh nodes. You do not need firmware which allows jffs script at startup but it helps if you want to preserve settings after a reboot. Also you can not ever make wireless changes in the gui as it will most likley overrite any of the changes you make.
 
 First ssh into your main router and change the country code. This removes all the channel restrictions by picking the wildcard region code so you have access to all regions
@@ -45,7 +46,26 @@ TW	a	56, 60, 64,
 100-140
 149, 153, 157, 161
 ```
+
 The result would be 136 on the main, 36 on the IS mesh node, and 56 on the TW. using 80mhz we have zero overlap.
 
 ENJOY!
+
+# METHOD #2 Allows for more carving.
+First set the Main Router to whatever you want as your main channel. Lets say 1.
+
+SSH into each AImesh one by one.
+
+Run the following command changing the channel to what you want.
+```
+service restart_wireless;  wl -i wl0.1 channel 6;  wl -i wl0.1 channel
+```
+Quickly after keep pasting the following command into the ssh console
+```
+wl -i wl0.1 channel 6;  wl -i wl0.1 channel
+```
+Do this until you see your target channel stick. You will see how AImesh is fighting to switch the channel but with enough spams of the previous command it will stick!!
+
+If you were unable to get it to stick with your channel, retry from step one.
+Do this for each Aimesh node.
 
